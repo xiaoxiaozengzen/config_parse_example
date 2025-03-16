@@ -1,0 +1,66 @@
+radar_node:
+  ros__parameters:
+    vehicle_info:
+      brand: "Geely"
+      style: "SUV"
+      model: "Z10"
+      id: 10
+      radar_info:
+        -
+          position: "AHEAD"
+          type: "SSTK_Z10_FMR"
+          channel_name: "can1"
+          channel_type: "canfd"
+          filter: [0x370, 0x371, 0x372, 0x373, 0x374, 0x375, 0x376, 0x377, 0x378, 0x379,
+                   0x37A, 0x37B, 0x37C, 0x37D, 0x37E, 0x37F, 0x380, 0x381, 0x382, 0x383,
+                   0x384, 0x385, 0x35F, 0x369, 0x3B7, 0x387, 0x291, 0x398, 0x3B8, 0x3BA,
+                   0x3B9, 0x3C3, 0x3CD, 0x3D7, 0x3E1, 0x3BB, 0x3BC, 0x3BD, 0x3BF, 0x3C1,
+                   0x3C2, 0x3C5,
+          ]
+          enable: true
+          send_topic_name: "/sensor/radar0_object"
+          last_frame_id: 0x3BF
+        -
+          position: "FRONT_LEFT"
+          type: "SSTK_Z10_FLR"
+          channel_name: "can4"
+          channel_type: "canfd"
+          filter: [0x129, 0x15C, 0x15E, 0x160, 0x162, 0x164, 0x166, 0x168, 0x16A, 0x16C,
+                   0x16E, 0x170, 0x172, 0x174, 0x176, 0x178, 0x15A,         
+          ]
+          enable: true
+          send_topic_name: "/sensor/radar1_object"
+          last_frame_id: 0x178
+        -
+          position: "FRONT_RIGHT"
+          type: "SSTK_Z10_FRR"
+          channel_name: "can4"
+          channel_type: "canfd"
+          filter: [0x12E, 0x15D, 0x15F, 0x161, 0x163, 0x165, 0x167, 0x169, 0x16B, 0x16D,
+                   0x16F, 0x171, 0x173, 0x175, 0x177, 0x179, 0x15B,         
+          ]
+          enable: true
+          send_topic_name: "/sensor/radar2_object"
+          last_frame_id: 0x179
+        -
+          position: "REAR_LEFT"
+          type: "SSTK_Z10_RLR"
+          channel_name: "can3"
+          channel_type: "canfd"
+          filter: [0x129, 0x15C, 0x15E, 0x160, 0x162, 0x164, 0x166, 0x168, 0x16A, 0x16C,
+                   0x16E, 0x170, 0x172, 0x174, 0x176, 0x178, 0x15A,         
+          ]
+          enable: true
+          send_topic_name: "/sensor/radar3_object"
+          last_frame_id: 0x178
+        -
+          position: "REAR_RIGHT"
+          type: "SSTK_Z10_RRR"
+          channel_name: "can3"
+          channel_type: "canfd"
+          filter: [0x12E, 0x15D, 0x15F, 0x161, 0x163, 0x165, 0x167, 0x169, 0x16B, 0x16D,
+                   0x16F, 0x171, 0x173, 0x175, 0x177, 0x179, 0x15B,         
+          ]
+          enable: true
+          send_topic_name: "/sensor/radar4_object"
+          last_frame_id: 0x179
