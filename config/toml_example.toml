@@ -1,56 +1,33 @@
-[perception_parameters]
-backbone_model_path = "models/pilot/e2e/e2e_bk_8_laney_fp16.engine"
-obstacle_model_path = "models/pilot/e2e/e2e_obstacle_0120.engine"
-metas_file_path = "models/pilot/e2e/metas_0120.bin"
-static_obstacle_model_path = "models/pilot/e2e/occ-trt10-points75k-fp16.engine"
-curve_path = "models/pilot/e2e/curve.engine"
-rv_pose_path = "models/pilot/e2e/rv_pos_embeds_0120.bin"
-with_map = true
-with_local_map = true
-with_cudagraph = false
-camera_number = 8
-gpu_id = 0
-radar_time_threshold = 0.30
-camera_time_threshold = 0.20
+# This is a TOML document.
 
-max_sync_time_interval = 0.05
-sync_mode = false
-test_mode = false
-have_obstacle = true
-have_lane = false
-radar_match = false
-calib_path = "calibration"
+title = "TOML Example"
 
-[perception_parameters.param]
-pid = 1234
-shuzu = ["haha", "nihaio"]
+[owner]
+name = "Tom Preston-Werner"
+dob = 1979-05-27T07:32:00-08:00 # First class dates
 
-[tl_perception_parameters]
-model_relative_path = "models/pilot/e2e/traffic_lights_0123_4090_fp16.engine"
+[database]
+server = "192.168.1.1"
+ports = [ 8000, 8001, 8002 ]
+connection_max = 5000
+enabled = true
 
-[sensors_and_topics]
+[servers]
 
-#subscribe
-camera_name_list = ["cam_front_120", "cam_front_120_sim_fov70", "cam_front_30","cam_back_70","cam_front_left_100_sim_fov104","cam_front_right_100_sim_fov104","cam_back_left_100_sim_fov104","cam_back_right_100_sim_fov104"]
-camera_topic_name_list = ["/sensor/cam_front_120/h264","/sensor/cam_front_30/h264","/sensor/cam_back_70/h264","/sensor/cam_front_left_100/h264","/sensor/cam_front_right_100/h264","/sensor/cam_back_left_100/h264","/sensor/cam_back_right_100/h264"]
+  # Indentation (tabs and/or spaces) is allowed but not required
+  [servers.alpha]
+  ip = "10.0.0.1"
+  dc = "eqdc10"
 
-radar_name_list = ["radar0", "radar1", "radar2", "radar3", "radar4"]
-radar_topic_name_list = ["/sensor/radar0_object", "/sensor/radar1_object", "/sensor/radar2_object", "/sensor/radar3_object", "/sensor/radar4_object"]
+  [servers.beta]
+  ip = "10.0.0.2"
+  dc = "eqdc10"
 
-localization_topic_name_list = ["/localization/localization_estimate"]
-lidar_topic_name_list = ["/sensor/front_rslidar_points"]
+[clients]
+data = [ ["gamma", "delta"], [1, 2] ]
 
-# publish
-det_result_topic_name = "/perception/tracking/obstacle_array_result" 
-rviz_result_topic_name = "/perception/detection/obstacle_array_result"
-lane_result_topic_name = "/perception/lane_array_result"
-timestamp_topic_name = "/perception/detection/obstacle_timestamp_result"
-static_obstacle_topic_name = "/perception/detection/static_obstacle_result"
-[image_preprocess]
-resized_width = 960
-resized_height = 540
-crop_start_x = 0
-crop_start_y = 28
-crop_end_x = 960
-crop_end_y = 540
-                                                                                                                                                                                                                                                                                                                    
+# Line breaks are OK when inside arrays
+hosts = [
+  "alpha",
+  "omega"
+]

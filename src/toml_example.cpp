@@ -32,49 +32,107 @@ void Init() {
 }
 
 void Parse() {
+  // 解析toml文件
   toml::value data = toml::parse("/mnt/workspace/cgz_workspace/Exercise/config_parse_example/config/toml_example.toml");
 
-  toml::value perception_parameters = toml::find(data, "perception_parameters");
-  std::string obstacle_model_path = toml::find<std::string>(perception_parameters, "obstacle_model_path");
-  std::cout << "obstacle_model_path: " << obstacle_model_path << std::endl;
+  /****************************title***********************************/
+  bool title_exists = data.contains("title");
+  if (title_exists) {
+    std::cout << "title exists" << std::endl;
+  } else {
+    std::cout << "title not exists" << std::endl;
+  }
+  toml::value title = toml::find(data, "title");
+  if(title.is_string()) {
+    std::cout << "title is string" << std::endl;
+  } else {
+    std::cout << "title is not string" << std::endl;
+  }
+  if(title.is_integer()) {
+    std::cout << "title is integer" << std::endl;
+  } else {
+    std::cout << "title is not integer" << std::endl;
+  }
+  if(title.is_floating()) {
+    std::cout << "title is floating" << std::endl;
+  } else {
+    std::cout << "title is not floating" << std::endl;
+  }
+  if(title.is_boolean()) {
+    std::cout << "title is boolean" << std::endl;
+  } else {
+    std::cout << "title is not boolean" << std::endl;
+  }
+  if(title.is_table()) {
+    std::cout << "title is table" << std::endl;
+  } else {
+    std::cout << "title is not table" << std::endl;
+  }
+  std::string title_str_0 = data.at("title").as_string();
+  std::cout << "title: " << title_str_0 << std::endl;
+
+  std::string title_str_1 = toml::find<std::string>(data, "title");
+  std::cout << "title: " << title_str_1 << std::endl;
+
+  std::string title_str_2 = data["title"].as_string();
+  std::cout << "title: " << title_str_2 << std::endl;
+#if 0
+  // count只用于table类型
+  std::size_t title_count = title.count("title");
+  std::cout << "title count: " << title_count << std::endl;
+#endif
+
+  /****************************servers***********************************/
+  bool servers_exists = data.contains("servers");
+  if (servers_exists) {
+    std::cout << "servers exists" << std::endl;
+  } else {
+    std::cout << "servers not exists" << std::endl;
+  }
+  toml::value servers = toml::find(data, "servers");
+  if(servers.is_array()) {
+    std::cout << "servers is array" << std::endl;
+  } else {
+    std::cout << "servers is not array" << std::endl;
+  }
+  if(servers.is_table()) {
+    std::cout << "servers is table" << std::endl;
+  } else {
+    std::cout << "servers is not table" << std::endl;
+  }
+  std::size_t servers_count = servers.count("servers");
+  std::cout << "servers count: " << servers_count << std::endl;
+  std::size_t servers_size = servers.size();
+  std::cout << "servers size: " << servers_size << std::endl;
+  toml::value servers_0 = servers.at("alpha");
+  std::string servers_0_ip = toml::find<std::string>(servers_0, "ip");
+  std::cout << "servers_0 ip: " << servers_0_ip << std::endl;
+  std::string servers_0_dc = toml::find<std::string>(servers_0, "dc");
+  std::cout << "servers_0 dc: " << servers_0_dc << std::endl;
   
   // 多层嵌套
-  int pid = toml::find<int>(data, "perception_parameters", "param", "pid");
-  std::cout << "pid: " << pid << std::endl; 
+  std::string owner_name = toml::find<std::string>(data, "owner", "name");
+  std::cout << "owner_name: " << owner_name << std::endl; 
 
   // 数组得话可以指定解析第几个
-  toml::value param = toml::find(data, "perception_parameters", "param");
-  std::string ret = toml::find<std::string>(param, "shuzu", 1);
-  std::cout << "ret: " << ret << std::endl;
-
-  // check if key exists
-  bool has_key = data.contains("perception_parameters");
-  if(has_key) {
-    std::cout << "perception_parameters exists" << std::endl;
+  toml::value ports = toml::find(data, "database", "ports");
+  if(ports.is_array()) {
+    std::cout << "ports is array" << std::endl;
   } else {
-    std::cout << "perception_parameters not exists" << std::endl;
+    std::cout << "ports is not array" << std::endl;
   }
-  toml::value perception_parameters1 = data.at("perception_parameters");
-  std::uint32_t count = perception_parameters1.count("obstacle_model_path");
-  std::cout << "count: " << count << std::endl;
+  int ret_0 = toml::find<int>(ports, 0);
+  std::cout << "ret_0: " << ret_0 << std::endl;
+  int ret_1 = ports.at(1).as_integer();
+  std::cout << "ret_1: " << ret_1 << std::endl;
+  int ret_2 = ports[2].as_integer();
+  std::cout << "ret_2: " << ret_2 << std::endl;
 
   // Get a toml value: toml::table
-  const toml::value value1 = toml::get<toml::table>(data).at("perception_parameters");
-  std::string path = toml::find<std::string>(value1, "obstacle_model_path");
-  std::cout << "path: " << path << std::endl;
-
-  // Get a toml value: toml::string
-  toml::value value2 = toml::get<toml::table>(data).at("perception_parameters");
-  toml::value value3 = toml::get<toml::table>(value2).at("backbone_model_path");
-  toml::string path1 = toml::get<toml::string>(value3);
-  std::cout << "path1: " << path1 << std::endl;
-
-  // at 和 operator[]
-  toml::value value4 = toml::get<toml::table>(data).at("perception_parameters").at("param").at("shuzu");
-  std::string str = value4.at(1).as_string();
-  std::cout << "str: " << str << std::endl;
-  str = value4[1].as_string();
-  std::cout << "str: " << str << std::endl;
+  const toml::value value1 = toml::get<toml::table>(data).at("servers").at("alpha");
+  toml::value value2 = toml::get<toml::table>(value1).at("ip");
+  std::string ip = toml::get<toml::string>(value2);
+  std::cout << "ip: " << ip << std::endl;
 }
 
 void Write() {
@@ -86,13 +144,38 @@ void Write() {
   toml::value v6{1, 2, 3, 4, 5};                                 // array
   toml::value v7{{"foo", 42}, {"bar", 3.14}, {"baz", "qux"}};    // table
   toml::value v8 = toml::table{{"foo", 42}, {"bar", 3.14}, {"baz", "qux"}};
+  toml::table v9_0;
+  v9_0["weight"] = 1.0;
+  v9_0["height"] = 2.0;
+  toml::table v9_1;
+  v9_1["fruit"]["apple"] = v9_0;
+  toml::value v9 = v9_1;
 
-  std::string str = toml::format(v8);
+  std::string str_1 = toml::format(v1);
+  std::string str_2 = toml::format(v2);
+  std::string str_3 = toml::format(v3);
+  std::string str_4 = toml::format(v4);
+  std::string str_5 = toml::format(v5);
+  std::string str_6 = toml::format(v6);
+  std::string str_7 = toml::format(v7);
+  std::string str_8 = toml::format(v8);
+  std::string str_9 = toml::format(v9);
 
-  std::ofstream ofs("./toml.toml");
-  ofs << str;
+  std::ofstream ofs("/mnt/workspace/cgz_workspace/Exercise/config_parse_example/output/toml.toml");
+  if(!ofs.is_open()) {
+    std::cerr << "Failed to open file for writing" << std::endl;
+    return;
+  }
+  ofs << str_1 << "\n";
+  ofs << str_2 << "\n";
+  ofs << str_3 << "\n";
+  ofs << str_4 << "\n";
+  ofs << str_5 << "\n";
+  ofs << str_6 << "\n";
+  ofs << str_7 << "\n";
+  ofs << str_8 << "\n";
+  ofs << str_9 << "\n";
   ofs.close();
-
 }
 
 int main() {

@@ -1,2 +1,5 @@
 build/
 conanbuild/
+output/*.toml
+output/*.json
+output/*.yaml
